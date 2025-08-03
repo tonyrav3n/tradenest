@@ -10,9 +10,9 @@ TradeNest provides a trustless escrow service for digital transactions, leveragi
 
 - **Framework**: Vite + React
 - **Language**: TypeScript
-- **Wallet Integration**: RainbowKit + wagmi
+- **Wallet Integration**: Reown AppKit + wagmi
 - **Blockchain**: Ethereum (Mainnet & Sepolia testnet)
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS v4
 - **Package Manager**: pnpm
 
 ## Getting Started
@@ -64,11 +64,13 @@ TradeNest provides a trustless escrow service for digital transactions, leveragi
 tradenest/
 ├── src/
 │   ├── App.tsx              # Root React component
-│   ├── Providers.tsx        # RainbowKit & wagmi providers
+│   ├── Providers.tsx        # AppKit providers
 │   ├── components/
 │   │   └── Header.tsx       # Navigation header
+│   ├── pages/
+│   │   └── Home.tsx         # Landing page
 │   ├── lib/
-│   │   └── wagmi.ts         # Wallet configuration
+│   │   └── wallet.ts        # Wallet & AppKit configuration
 │   ├── styles/
 │   │   ├── App.css          # App-specific styles
 │   │   └── index.css        # Global styles (includes Tailwind)
@@ -77,13 +79,19 @@ tradenest/
 └── ...
 ```
 
+## Features
+
+- 🎨 **Modern UI**: Dark theme with subtle blue accents and dotted background
+- 🔗 **Web3 Integration**: Connect with popular wallets via Reown AppKit
+- 📱 **Responsive Design**: Mobile-first responsive interface
+- ⚡ **Fast Performance**: Built on Vite for optimal performance
+
 ## Features (Planned)
 
 - 🔒 **Secure Escrow**: Smart contract-based escrow system
 - 💰 **Multi-token Support**: Support for various ERC-20 tokens
-- 🔗 **Web3 Integration**: Connect with popular wallets via RainbowKit
-- 📱 **Responsive Design**: Mobile-first responsive interface
-- ⚡ **Fast Performance**: Built on Vite for optimal performance
+- 🛒 **Item Marketplace**: Browse and list digital items
+- 🤝 **Trade Creation**: Create custom trade agreements
 
 ## Environment Variables
 

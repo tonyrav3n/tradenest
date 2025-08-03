@@ -1,1 +1,23 @@
 @import 'tailwindcss';
+
+/* Global styles */
+:root {
+  color-scheme: dark;
+  background-color: #0a090f;
+  color: #ffffff;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a090f;
+  color: #ffffff;
+}
+
+/* Soft blue dotted background */
+main {
+  background-color: #0a090f;
+  background-image: radial-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+  background-size: 8px 8px;
+  min-height: 100vh;
+}
