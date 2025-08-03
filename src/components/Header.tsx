@@ -1,5 +1,3 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-
 export default function Header() {
   return (
     <header className='w-full border-b border-gray-200 bg-white'>
@@ -18,7 +16,7 @@ export default function Header() {
 
           {/* Wallet Connect Button */}
           <div className='flex items-center'>
-            <ConnectButton />
+            <appkit-button />
           </div>
         </div>
       </div>
