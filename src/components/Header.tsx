@@ -29,17 +29,11 @@ export default function Header() {
 
           {/* Navigation */}
           <nav className='hidden md:flex space-x-8'>
-            <a
-              href='#browse'
-              className='text-gray-300 hover:text-blue-400 transition-colors'
-            >
-              Browse Products
-            </a>
             <Link
-              to='/list-product'
+              to='/products'
               className='text-gray-300 hover:text-blue-400 transition-colors no-underline'
             >
-              List Product
+              Browse Products
             </Link>
           </nav>
 

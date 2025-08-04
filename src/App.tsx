@@ -2,6 +2,7 @@ import { AppKitProvider } from '@/Providers';
 import Header from '@/components/Header';
 import Home from '@/pages/Home';
 import ListProduct from '@/pages/ListProduct';
+import Products from '@/pages/Products';
 import '@/styles/App.css';
 import '@/styles/index.css';
 import { useEffect } from 'react';
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/list-product' element={<ListProduct />} />
+            <Route path='/products' element={<Products />} />
           </Routes>
         </main>
       </Router>

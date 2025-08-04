@@ -21,9 +21,12 @@ export default function Home() {
             >
               List Product
             </Link>
-            <button className='px-8 py-4 bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-blue-400 rounded-lg transition-colors font-semibold text-lg min-w-[160px]'>
+            <Link
+              to='/products'
+              className='px-8 py-4 bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-blue-400 rounded-lg transition-colors font-semibold text-lg min-w-[160px] text-center no-underline'
+            >
               Browse Products
-            </button>
+            </Link>
             <button className='px-8 py-4 bg-transparent border-2 border-gray-500 hover:bg-gray-500/10 text-gray-300 rounded-lg transition-colors font-semibold text-lg min-w-[160px]'>
               Create Trade
             </button>
