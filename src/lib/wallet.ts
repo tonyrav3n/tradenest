@@ -8,8 +8,8 @@ const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
 const metadata = {
   name: 'TradeNest',
   description: 'TradeNest is a decentralized trading platform.',
-  // url: 'https://localhost:5173',
-  url: 'https://tradenest-tau.vercel.app',
+  url: 'https://localhost:5173',
+  // url: 'https://tradenest-tau.vercel.app',
   icons: ['https://avatars.githubusercontent.com/u/179229932'],
 };
 
