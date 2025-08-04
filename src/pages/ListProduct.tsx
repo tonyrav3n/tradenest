@@ -1,11 +1,17 @@
 import { calculateEquivalentPrice, getCurrencySymbol } from '@/lib/utils';
+import { addProduct } from '@/lib/productStore';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAccount } from 'wagmi';
 
 const STORAGE_KEY = 'tradenest-list-product-form';
 
 export default function ListProduct() {
+  const navigate = useNavigate();
+  const { address, isConnected } = useAccount();
   const [formData, setFormData] = useState({
     title: '',
+    summary: '',
     description: '',
     category: '',
     priceUSD: '',
@@ -135,44 +141,78 @@ export default function ListProduct() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if wallet is connected
+    if (!isConnected || !address) {
+      alert('Please connect your wallet to list a product');
+      return;
+    }
+    
     if (!formData.agreeToTerms) {
       alert('Please agree to the terms and conditions');
       return;
     }
 
-    // TODO: Implement actual form submission
-    console.log('Form data:', formData);
+    try {
+      // Add the product to our store with the connected wallet address
+      const newProduct = addProduct({
+        title: formData.title,
+        summary: formData.summary,
+        description: formData.description,
+        category: formData.category,
+        priceUSD: formData.priceUSD,
+        network: formData.network,
+        file: formData.file,
+        previewImage: formData.previewImage,
+      }, address);
 
-    // Clear saved data after successful submission
-    clearSavedData();
+      console.log('New product created:', newProduct);
 
-    // Reset form
-    setFormData({
-      title: '',
-      description: '',
-      category: '',
-      priceUSD: '',
-      network: '',
-      file: null,
-      previewImage: null,
-      agreeToTerms: false,
-    });
-    setEquivalentPrice('0.00');
+      // Clear saved data after successful submission
+      clearSavedData();
 
-    // Manually clear file inputs
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      // Reset form
+      setFormData({
+        title: '',
+        summary: '',
+        description: '',
+        category: '',
+        priceUSD: '',
+        network: '',
+        file: null,
+        previewImage: null,
+        agreeToTerms: false,
+      });
+      setEquivalentPrice('0.00');
+
+      // Manually clear file inputs
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      if (previewImageInputRef.current) {
+        previewImageInputRef.current.value = '';
+      }
+
+      // Show success message and redirect
+      alert(`Product "${newProduct.title}" has been listed successfully! Redirecting to product page...`);
+      
+      // Navigate to the new product's detail page
+      setTimeout(() => {
+        navigate(`/product/${newProduct.id}`);
+      }, 1000);
+
+    } catch (error) {
+      console.error('Error creating product:', error);
+      alert('There was an error listing your product. Please try again.');
     }
-    if (previewImageInputRef.current) {
-      previewImageInputRef.current.value = '';
-    }
-
-    alert('Product listing submitted! (This is a demo)');
   };
 
   const isFormValid = () => {
     return (
+      isConnected &&
+      address &&
       formData.title.trim() &&
+      formData.summary.trim() &&
       formData.description.trim() &&
       formData.category &&
       formData.priceUSD &&
@@ -195,6 +235,33 @@ export default function ListProduct() {
         </div>
 
         <div className='bg-black/30 border border-blue-500 rounded-xl p-8'>
+          {/* Wallet Connection Status */}
+          <div className='mb-6 p-4 border rounded-lg' style={{
+            borderColor: isConnected ? '#22c55e' : '#f59e0b',
+            backgroundColor: isConnected ? '#22c55e10' : '#f59e0b10'
+          }}>
+            <div className='flex items-center justify-between'>
+              <div>
+                <p className='font-medium' style={{ color: isConnected ? '#22c55e' : '#f59e0b' }}>
+                  {isConnected ? '✅ Wallet Connected' : '⚠️ Wallet Not Connected'}
+                </p>
+                {isConnected && address && (
+                  <p className='text-sm text-gray-400 mt-1'>
+                    Connected as: <span className='font-mono'>{address.slice(0, 6)}...{address.slice(-4)}</span>
+                  </p>
+                )}
+                {!isConnected && (
+                  <p className='text-sm text-gray-400 mt-1'>
+                    You need to connect your wallet to list products
+                  </p>
+                )}
+              </div>
+              {!isConnected && (
+                <w3m-button />
+              )}
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className='space-y-6'>
             {/* Product Title */}
             <div>
@@ -210,10 +277,45 @@ export default function ListProduct() {
                 name='title'
                 value={formData.title}
                 onChange={handleInputChange}
+                maxLength={100}
                 className='w-full px-4 py-3 bg-black/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none'
                 placeholder='Enter your product title'
                 required
               />
+              <div className='flex justify-end mt-1'>
+                <p className='text-xs text-gray-400'>
+                  {formData.title.length}/100
+                </p>
+              </div>
+            </div>
+
+            {/* Summary */}
+            <div>
+              <label
+                htmlFor='summary'
+                className='block text-sm font-medium text-white mb-2'
+              >
+                Summary *
+              </label>
+              <textarea
+                id='summary'
+                name='summary'
+                value={formData.summary}
+                onChange={handleInputChange}
+                rows={2}
+                maxLength={160}
+                className='w-full px-4 py-3 bg-black/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none resize-none'
+                placeholder='Brief summary of your product'
+                required
+              />
+              <div className='flex justify-between items-center mt-1'>
+                <p className='text-xs text-gray-400'>
+                  Keep it concise - this will be displayed on product cards
+                </p>
+                <p className='text-xs text-gray-400'>
+                  {formData.summary.length}/160
+                </p>
+              </div>
             </div>
 
             {/* Description */}
@@ -222,18 +324,27 @@ export default function ListProduct() {
                 htmlFor='description'
                 className='block text-sm font-medium text-white mb-2'
               >
-                Description *
+                Full Description *
               </label>
               <textarea
                 id='description'
                 name='description'
                 value={formData.description}
                 onChange={handleInputChange}
-                rows={4}
+                rows={6}
+                maxLength={2000}
                 className='w-full px-4 py-3 bg-black/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none resize-none'
-                placeholder='Describe your product in detail'
+                placeholder='Detailed description of your product'
                 required
               />
+              <div className='flex justify-between items-center mt-1'>
+                <p className='text-xs text-gray-400'>
+                  Provide comprehensive details about your product
+                </p>
+                <p className='text-xs text-gray-400'>
+                  {formData.description.length}/2000
+                </p>
+              </div>
             </div>
 
             {/* Category */}
@@ -364,7 +475,7 @@ export default function ListProduct() {
                 className='w-full px-4 py-3 bg-black/50 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-700 focus:border-blue-500 focus:outline-none'
               />
               <p className='text-sm text-gray-400 mt-1'>
-                Upload an image to showcase your product (PNG, JPG, GIF)
+                Upload an image to showcase your product
               </p>
             </div>
 
@@ -396,7 +507,7 @@ export default function ListProduct() {
               disabled={!isFormValid()}
               className='w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-semibold text-lg'
             >
-              List Product
+              {!isConnected ? 'Connect Wallet to List Product' : 'List Product'}
             </button>
           </form>
         </div>

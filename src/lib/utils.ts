@@ -56,3 +56,26 @@ export const getCurrencySymbol = (networkValue: string): string => {
 
   return symbols[networkValue as NetworkType] || '';
 };
+
+/**
+ * Format price display with both crypto and USD amounts
+ * @param usd - Price in USD
+ * @param crypto - Price in cryptocurrency
+ * @param network - Network identifier
+ * @returns Object with formatted USD and crypto prices
+ */
+export const formatPrice = (usd: number, crypto: number, network: string) => {
+  return {
+    usd: `$${usd.toFixed(2)}`,
+    crypto: `${crypto.toFixed(6)} ${getCurrencySymbol(network)}`
+  };
+};
+
+/**
+ * Truncate wallet address for display
+ * @param address - Full wallet address
+ * @returns Truncated address in format "0x1234...abcd"
+ */
+export const truncateAddress = (address: string): string => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};

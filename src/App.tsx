@@ -2,6 +2,7 @@ import { AppKitProvider } from '@/Providers';
 import Header from '@/components/Header';
 import Home from '@/pages/Home';
 import ListProduct from '@/pages/ListProduct';
+import ProductDetail from '@/pages/ProductDetail';
 import Products from '@/pages/Products';
 import '@/styles/App.css';
 import '@/styles/index.css';
@@ -23,6 +24,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/list-product' element={<ListProduct />} />
             <Route path='/products' element={<Products />} />
+            <Route path='/product/:id' element={<ProductDetail />} />
           </Routes>
         </main>
       </Router>
