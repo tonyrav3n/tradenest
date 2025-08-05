@@ -1,3 +1,5 @@
+import { HiArrowUp } from 'react-icons/hi2';
+
 interface LoadMoreSectionProps {
   hasMoreProducts: boolean;
   isLoading: boolean;
@@ -51,8 +53,9 @@ export default function LoadMoreSection({
             <p className='text-gray-400 font-medium mb-4'>No More Items</p>
             <button
               onClick={onScrollToTop}
-              className='px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium cursor-pointer'
+              className='flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium cursor-pointer'
             >
+              <HiArrowUp className='w-4 h-4' />
               Back to Top
             </button>
           </div>

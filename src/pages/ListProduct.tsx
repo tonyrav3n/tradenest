@@ -3,6 +3,7 @@ import { addProduct } from '@/lib/productStore';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
+import { HiCheckCircle, HiExclamationTriangle, HiPlus, HiArrowUpTray, HiPhoto } from 'react-icons/hi2';
 
 const STORAGE_KEY = 'tradenest-list-product-form';
 
@@ -223,18 +224,18 @@ export default function ListProduct() {
   };
 
   return (
-    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-12'>
+    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12'>
       <div className='max-w-2xl mx-auto'>
-        <div className='text-center mb-8'>
-          <h1 className='text-4xl font-bold text-white mb-4'>
+        <div className='text-center mb-6 sm:mb-8'>
+          <h1 className='text-3xl sm:text-4xl font-bold text-white mb-4'>
             List Your Product
           </h1>
-          <p className='text-gray-300'>
+          <p className='text-gray-300 px-2'>
             Create a secure listing for your digital product
           </p>
         </div>
 
-        <div className='bg-black/30 border border-blue-500 rounded-xl p-8'>
+        <div className='bg-black/30 border border-blue-500 rounded-xl p-4 sm:p-6 lg:p-8'>
           {/* Wallet Connection Status */}
           <div className='mb-6 p-4 border rounded-lg' style={{
             borderColor: isConnected ? '#22c55e' : '#f59e0b',
@@ -242,8 +243,18 @@ export default function ListProduct() {
           }}>
             <div className='flex items-center justify-between'>
               <div>
-                <p className='font-medium' style={{ color: isConnected ? '#22c55e' : '#f59e0b' }}>
-                  {isConnected ? '✅ Wallet Connected' : '⚠️ Wallet Not Connected'}
+                <p className='flex items-center gap-2 font-medium' style={{ color: isConnected ? '#22c55e' : '#f59e0b' }}>
+                  {isConnected ? (
+                    <>
+                      <HiCheckCircle className='w-5 h-5' />
+                      Wallet Connected
+                    </>
+                  ) : (
+                    <>
+                      <HiExclamationTriangle className='w-5 h-5' />
+                      Wallet Not Connected
+                    </>
+                  )}
                 </p>
                 {isConnected && address && (
                   <p className='text-sm text-gray-400 mt-1'>
@@ -373,7 +384,7 @@ export default function ListProduct() {
             </div>
 
             {/* Price and Network */}
-            <div className='grid md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
               <div>
                 <label
                   htmlFor='priceUSD'
@@ -438,8 +449,9 @@ export default function ListProduct() {
             <div>
               <label
                 htmlFor='file'
-                className='block text-sm font-medium text-white mb-2'
+                className='flex items-center gap-2 text-sm font-medium text-white mb-2'
               >
+                <HiArrowUpTray className='w-4 h-4' />
                 Product File *
               </label>
               <input
@@ -461,8 +473,9 @@ export default function ListProduct() {
             <div>
               <label
                 htmlFor='previewImage'
-                className='block text-sm font-medium text-white mb-2'
+                className='flex items-center gap-2 text-sm font-medium text-white mb-2'
               >
+                <HiPhoto className='w-4 h-4' />
                 Preview Image (Optional)
               </label>
               <input
@@ -505,8 +518,9 @@ export default function ListProduct() {
             <button
               type='submit'
               disabled={!isFormValid()}
-              className='w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-semibold text-lg'
+              className='w-full flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-semibold text-lg'
             >
+              <HiPlus className='w-5 h-5' />
               {!isConnected ? 'Connect Wallet to List Product' : 'List Product'}
             </button>
           </form>

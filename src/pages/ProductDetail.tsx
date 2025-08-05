@@ -1,6 +1,20 @@
 import { getProductById, getProducts } from '@/lib/productStore';
 import { formatPrice, getCurrencySymbol, truncateAddress } from '@/lib/utils';
 import { Link, useParams } from 'react-router-dom';
+import { 
+  HiCog6Tooth, 
+  HiSwatch, 
+  HiDocumentText, 
+  HiMusicalNote, 
+  HiFilm, 
+  HiCamera, 
+  HiAcademicCap, 
+  HiPuzzlePiece, 
+  HiCube,
+  HiStar,
+  HiShoppingCart,
+  HiHeart
+} from 'react-icons/hi2';
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -48,11 +62,11 @@ export default function ProductDetail() {
   );
 
   return (
-    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-12'>
+    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12'>
       <div className='max-w-6xl mx-auto'>
         {/* Breadcrumb */}
-        <nav className='mb-8'>
-          <div className='flex items-center space-x-2 text-sm text-gray-400'>
+        <nav className='mb-6 sm:mb-8'>
+          <div className='flex items-center space-x-2 text-sm text-gray-400 px-2'>
             <Link
               to='/'
               className='hover:text-white transition-colors no-underline'
@@ -67,11 +81,11 @@ export default function ProductDetail() {
               Products
             </Link>
             <span>/</span>
-            <span className='text-white'>{product.title}</span>
+            <span className='text-white truncate'>{product.title}</span>
           </div>
         </nav>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12'>
           {/* Product Image */}
           <div className='space-y-4'>
             <div className='aspect-video w-full overflow-hidden rounded-xl border border-blue-500/30'>
@@ -84,17 +98,17 @@ export default function ProductDetail() {
               ) : (
                 <div className='w-full h-full bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center'>
                   <div className='text-center'>
-                    <div className='text-6xl mb-4'>
-                      {product.category === 'Software & Tools' && '⚙️'}
-                      {product.category === 'Digital Art & NFTs' && '🎨'}
-                      {product.category === 'E-books & Documents' && '📚'}
-                      {product.category === 'Music & Audio' && '🎵'}
-                      {product.category === 'Video & Animation' && '🎬'}
-                      {product.category === 'Templates & Themes' && '🎨'}
-                      {product.category === 'Photography' && '📸'}
-                      {product.category === 'Educational Content' && '🎓'}
-                      {product.category === 'Games & Gaming Assets' && '🎮'}
-                      {product.category === 'Other' && '📦'}
+                    <div className='text-6xl mb-4 text-blue-300 flex items-center justify-center'>
+                      {product.category === 'Software & Tools' && <HiCog6Tooth />}
+                      {product.category === 'Digital Art & NFTs' && <HiSwatch />}
+                      {product.category === 'E-books & Documents' && <HiDocumentText />}
+                      {product.category === 'Music & Audio' && <HiMusicalNote />}
+                      {product.category === 'Video & Animation' && <HiFilm />}
+                      {product.category === 'Templates & Themes' && <HiSwatch />}
+                      {product.category === 'Photography' && <HiCamera />}
+                      {product.category === 'Educational Content' && <HiAcademicCap />}
+                      {product.category === 'Games & Gaming Assets' && <HiPuzzlePiece />}
+                      {product.category === 'Other' && <HiCube />}
                     </div>
                     <div className='text-lg font-medium text-blue-300'>
                       {product.category}
@@ -149,11 +163,13 @@ export default function ProductDetail() {
 
               {/* Purchase Buttons */}
               <div className='space-y-3'>
-                <button className='w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors'>
+                <button className='w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors'>
+                  <HiShoppingCart className='w-5 h-5' />
                   Buy Now
                 </button>
-                <button className='w-full px-6 py-3 bg-transparent border border-blue-500 hover:bg-blue-500/10 text-blue-400 font-semibold rounded-lg transition-colors'>
-                  Add to Cart
+                <button className='w-full flex items-center justify-center gap-2 px-6 py-3 bg-transparent border border-blue-500 hover:bg-blue-500/10 text-blue-400 font-semibold rounded-lg transition-colors'>
+                  <HiHeart className='w-5 h-5' />
+                  Add to Wishlist
                 </button>
               </div>
             </div>
@@ -179,7 +195,11 @@ export default function ProductDetail() {
                 <div className='flex justify-between'>
                   <span className='text-gray-400'>Rating:</span>
                   <div className='flex items-center'>
-                    <div className='flex text-yellow-400'>{'★'.repeat(5)}</div>
+                    <div className='flex text-yellow-400'>
+                      {[...Array(5)].map((_, i) => (
+                        <HiStar key={i} className='w-4 h-4' />
+                      ))}
+                    </div>
                     <span className='text-gray-400 ml-2'>(4.8/5)</span>
                   </div>
                 </div>
@@ -189,8 +209,8 @@ export default function ProductDetail() {
         </div>
 
         {/* Related Products */}
-        <div className='mt-16'>
-          <h2 className='text-2xl font-bold text-white mb-8'>
+        <div className='mt-12 sm:mt-16'>
+          <h2 className='text-xl sm:text-2xl font-bold text-white mb-6 sm:mb-8 px-2'>
             Related Products
           </h2>
           {(() => {
@@ -202,11 +222,11 @@ export default function ProductDetail() {
 
             if (relatedProducts.length === 0) {
               return (
-                <div className='text-center py-12 bg-black/20 border border-gray-600 rounded-xl'>
-                  <h3 className='text-xl font-semibold text-white mb-2'>
+                <div className='text-center py-8 sm:py-12 bg-black/20 border border-gray-600 rounded-xl mx-2'>
+                  <h3 className='text-lg sm:text-xl font-semibold text-white mb-2'>
                     No Related Products Found
                   </h3>
-                  <p className='text-gray-400 mb-6'>
+                  <p className='text-gray-400 mb-4 sm:mb-6 px-4'>
                     There are currently no other products in the "
                     {product.category}" category.
                   </p>
@@ -221,7 +241,7 @@ export default function ProductDetail() {
             }
 
             return (
-              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-2'>
                 {relatedProducts.map((relatedProduct) => {
                   const relatedPrices = formatPrice(
                     relatedProduct.priceUSD,
@@ -244,26 +264,26 @@ export default function ProductDetail() {
                         ) : (
                           <div className='w-full h-full bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center'>
                             <div className='text-center'>
-                              <div className='text-2xl mb-1'>
+                              <div className='text-2xl mb-1 text-blue-300 flex items-center justify-center'>
                                 {relatedProduct.category ===
-                                  'Software & Tools' && '⚙️'}
+                                  'Software & Tools' && <HiCog6Tooth />}
                                 {relatedProduct.category ===
-                                  'Digital Art & NFTs' && '🎨'}
+                                  'Digital Art & NFTs' && <HiSwatch />}
                                 {relatedProduct.category ===
-                                  'E-books & Documents' && '📚'}
+                                  'E-books & Documents' && <HiDocumentText />}
                                 {relatedProduct.category === 'Music & Audio' &&
-                                  '🎵'}
+                                  <HiMusicalNote />}
                                 {relatedProduct.category ===
-                                  'Video & Animation' && '🎬'}
+                                  'Video & Animation' && <HiFilm />}
                                 {relatedProduct.category ===
-                                  'Templates & Themes' && '🎨'}
+                                  'Templates & Themes' && <HiSwatch />}
                                 {relatedProduct.category === 'Photography' &&
-                                  '📸'}
+                                  <HiCamera />}
                                 {relatedProduct.category ===
-                                  'Educational Content' && '🎓'}
+                                  'Educational Content' && <HiAcademicCap />}
                                 {relatedProduct.category ===
-                                  'Games & Gaming Assets' && '🎮'}
-                                {relatedProduct.category === 'Other' && '📦'}
+                                  'Games & Gaming Assets' && <HiPuzzlePiece />}
+                                {relatedProduct.category === 'Other' && <HiCube />}
                               </div>
                               <div className='text-xs font-medium text-blue-300'>
                                 {relatedProduct.category}
