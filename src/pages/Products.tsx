@@ -2,6 +2,7 @@ import LoadMoreSection from '@/components/LoadMoreSection';
 import NoProductsFound from '@/components/NoProductsFound';
 import ProductCard from '@/components/ProductCard';
 import ProductFilters from '@/components/ProductFilters';
+import ProductSkeleton from '@/components/ProductSkeleton';
 import {
   filterAndSortProducts,
   type FilterOptions,
@@ -13,13 +14,22 @@ export default function Products() {
   const [products, setProducts] = useState(getProducts());
   const [displayedProducts, setDisplayedProducts] = useState(6); // Show 6 products initially
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortBy, setSortBy] = useState('newest');
 
-  // Refresh products when component mounts or when returning to this page
+  // Simulate initial loading and refresh products when component mounts
   useEffect(() => {
-    setProducts(getProducts());
+    const loadProducts = async () => {
+      setIsInitialLoading(true);
+      // Simulate loading delay for demonstration
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setProducts(getProducts());
+      setIsInitialLoading(false);
+    };
+
+    loadProducts();
   }, []);
 
   // Get filtered and sorted products
@@ -53,7 +63,7 @@ export default function Products() {
   const productsToShow = filteredProducts.slice(0, displayedProducts);
   const hasActiveFilters = !!(searchTerm || selectedCategory);
   return (
-    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12'>
+    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12'>
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='text-center mb-8 sm:mb-12'>
@@ -78,7 +88,14 @@ export default function Products() {
         />
 
         {/* Content */}
-        {filteredProducts.length === 0 ? (
+        {isInitialLoading ? (
+          /* Skeleton Loading State */
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <ProductSkeleton key={index} />
+            ))}
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <NoProductsFound
             searchTerm={searchTerm}
             selectedCategory={selectedCategory}

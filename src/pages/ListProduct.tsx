@@ -1,9 +1,15 @@
-import { calculateEquivalentPrice, getCurrencySymbol } from '@/lib/utils';
 import { addProduct } from '@/lib/productStore';
+import { calculateEquivalentPrice, getCurrencySymbol } from '@/lib/utils';
 import { useEffect, useRef, useState } from 'react';
+import {
+  HiArrowUpTray,
+  HiCheckCircle,
+  HiExclamationTriangle,
+  HiPhoto,
+  HiPlus,
+} from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
-import { HiCheckCircle, HiExclamationTriangle, HiPlus, HiArrowUpTray, HiPhoto } from 'react-icons/hi2';
 
 const STORAGE_KEY = 'tradenest-list-product-form';
 
@@ -142,13 +148,13 @@ export default function ListProduct() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Check if wallet is connected
     if (!isConnected || !address) {
       alert('Please connect your wallet to list a product');
       return;
     }
-    
+
     if (!formData.agreeToTerms) {
       alert('Please agree to the terms and conditions');
       return;
@@ -156,16 +162,19 @@ export default function ListProduct() {
 
     try {
       // Add the product to our store with the connected wallet address
-      const newProduct = addProduct({
-        title: formData.title,
-        summary: formData.summary,
-        description: formData.description,
-        category: formData.category,
-        priceUSD: formData.priceUSD,
-        network: formData.network,
-        file: formData.file,
-        previewImage: formData.previewImage,
-      }, address);
+      const newProduct = addProduct(
+        {
+          title: formData.title,
+          summary: formData.summary,
+          description: formData.description,
+          category: formData.category,
+          priceUSD: formData.priceUSD,
+          network: formData.network,
+          file: formData.file,
+          previewImage: formData.previewImage,
+        },
+        address
+      );
 
       console.log('New product created:', newProduct);
 
@@ -195,13 +204,14 @@ export default function ListProduct() {
       }
 
       // Show success message and redirect
-      alert(`Product "${newProduct.title}" has been listed successfully! Redirecting to product page...`);
-      
+      alert(
+        `Product "${newProduct.title}" has been listed successfully! Redirecting to product page...`
+      );
+
       // Navigate to the new product's detail page
       setTimeout(() => {
         navigate(`/product/${newProduct.id}`);
       }, 1000);
-
     } catch (error) {
       console.error('Error creating product:', error);
       alert('There was an error listing your product. Please try again.');
@@ -224,7 +234,7 @@ export default function ListProduct() {
   };
 
   return (
-    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12'>
+    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12'>
       <div className='max-w-2xl mx-auto'>
         <div className='text-center mb-6 sm:mb-8'>
           <h1 className='text-3xl sm:text-4xl font-bold text-white mb-4'>
@@ -237,13 +247,19 @@ export default function ListProduct() {
 
         <div className='bg-black/30 border border-blue-500 rounded-xl p-4 sm:p-6 lg:p-8'>
           {/* Wallet Connection Status */}
-          <div className='mb-6 p-4 border rounded-lg' style={{
-            borderColor: isConnected ? '#22c55e' : '#f59e0b',
-            backgroundColor: isConnected ? '#22c55e10' : '#f59e0b10'
-          }}>
+          <div
+            className='mb-6 p-4 border rounded-lg'
+            style={{
+              borderColor: isConnected ? '#22c55e' : '#f59e0b',
+              backgroundColor: isConnected ? '#22c55e10' : '#f59e0b10',
+            }}
+          >
             <div className='flex items-center justify-between'>
               <div>
-                <p className='flex items-center gap-2 font-medium' style={{ color: isConnected ? '#22c55e' : '#f59e0b' }}>
+                <p
+                  className='flex items-center gap-2 font-medium'
+                  style={{ color: isConnected ? '#22c55e' : '#f59e0b' }}
+                >
                   {isConnected ? (
                     <>
                       <HiCheckCircle className='w-5 h-5' />
@@ -258,7 +274,10 @@ export default function ListProduct() {
                 </p>
                 {isConnected && address && (
                   <p className='text-sm text-gray-400 mt-1'>
-                    Connected as: <span className='font-mono'>{address.slice(0, 6)}...{address.slice(-4)}</span>
+                    Connected as:{' '}
+                    <span className='font-mono'>
+                      {address.slice(0, 6)}...{address.slice(-4)}
+                    </span>
                   </p>
                 )}
                 {!isConnected && (
@@ -267,9 +286,7 @@ export default function ListProduct() {
                   </p>
                 )}
               </div>
-              {!isConnected && (
-                <w3m-button />
-              )}
+              {!isConnected && <w3m-button />}
             </div>
           </div>
 

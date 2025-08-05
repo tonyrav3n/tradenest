@@ -1,20 +1,20 @@
 import { getProductById, getProducts } from '@/lib/productStore';
 import { formatPrice, getCurrencySymbol, truncateAddress } from '@/lib/utils';
-import { Link, useParams } from 'react-router-dom';
-import { 
-  HiCog6Tooth, 
-  HiSwatch, 
-  HiDocumentText, 
-  HiMusicalNote, 
-  HiFilm, 
-  HiCamera, 
-  HiAcademicCap, 
-  HiPuzzlePiece, 
+import {
+  HiAcademicCap,
+  HiCamera,
+  HiCog6Tooth,
   HiCube,
-  HiStar,
+  HiDocumentText,
+  HiFilm,
+  HiHeart,
+  HiMusicalNote,
+  HiPuzzlePiece,
   HiShoppingCart,
-  HiHeart
+  HiStar,
+  HiSwatch,
 } from 'react-icons/hi2';
+import { Link, useParams } from 'react-router-dom';
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -36,7 +36,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-12'>
+      <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12'>
         <div className='max-w-4xl mx-auto text-center'>
           <h1 className='text-4xl font-bold text-white mb-4'>
             Product Not Found
@@ -62,7 +62,7 @@ export default function ProductDetail() {
   );
 
   return (
-    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12'>
+    <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12'>
       <div className='max-w-6xl mx-auto'>
         {/* Breadcrumb */}
         <nav className='mb-6 sm:mb-8'>
@@ -99,15 +99,29 @@ export default function ProductDetail() {
                 <div className='w-full h-full bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center'>
                   <div className='text-center'>
                     <div className='text-6xl mb-4 text-blue-300 flex items-center justify-center'>
-                      {product.category === 'Software & Tools' && <HiCog6Tooth />}
-                      {product.category === 'Digital Art & NFTs' && <HiSwatch />}
-                      {product.category === 'E-books & Documents' && <HiDocumentText />}
-                      {product.category === 'Music & Audio' && <HiMusicalNote />}
+                      {product.category === 'Software & Tools' && (
+                        <HiCog6Tooth />
+                      )}
+                      {product.category === 'Digital Art & NFTs' && (
+                        <HiSwatch />
+                      )}
+                      {product.category === 'E-books & Documents' && (
+                        <HiDocumentText />
+                      )}
+                      {product.category === 'Music & Audio' && (
+                        <HiMusicalNote />
+                      )}
                       {product.category === 'Video & Animation' && <HiFilm />}
-                      {product.category === 'Templates & Themes' && <HiSwatch />}
+                      {product.category === 'Templates & Themes' && (
+                        <HiSwatch />
+                      )}
                       {product.category === 'Photography' && <HiCamera />}
-                      {product.category === 'Educational Content' && <HiAcademicCap />}
-                      {product.category === 'Games & Gaming Assets' && <HiPuzzlePiece />}
+                      {product.category === 'Educational Content' && (
+                        <HiAcademicCap />
+                      )}
+                      {product.category === 'Games & Gaming Assets' && (
+                        <HiPuzzlePiece />
+                      )}
                       {product.category === 'Other' && <HiCube />}
                     </div>
                     <div className='text-lg font-medium text-blue-300'>
@@ -271,19 +285,22 @@ export default function ProductDetail() {
                                   'Digital Art & NFTs' && <HiSwatch />}
                                 {relatedProduct.category ===
                                   'E-books & Documents' && <HiDocumentText />}
-                                {relatedProduct.category === 'Music & Audio' &&
-                                  <HiMusicalNote />}
+                                {relatedProduct.category ===
+                                  'Music & Audio' && <HiMusicalNote />}
                                 {relatedProduct.category ===
                                   'Video & Animation' && <HiFilm />}
                                 {relatedProduct.category ===
                                   'Templates & Themes' && <HiSwatch />}
-                                {relatedProduct.category === 'Photography' &&
-                                  <HiCamera />}
+                                {relatedProduct.category === 'Photography' && (
+                                  <HiCamera />
+                                )}
                                 {relatedProduct.category ===
                                   'Educational Content' && <HiAcademicCap />}
                                 {relatedProduct.category ===
                                   'Games & Gaming Assets' && <HiPuzzlePiece />}
-                                {relatedProduct.category === 'Other' && <HiCube />}
+                                {relatedProduct.category === 'Other' && (
+                                  <HiCube />
+                                )}
                               </div>
                               <div className='text-xs font-medium text-blue-300'>
                                 {relatedProduct.category}

@@ -21,10 +21,10 @@ export default function LoadMoreSection({
         <button
           onClick={onLoadMore}
           disabled={isLoading}
-          className='px-8 py-3 bg-transparent border border-gray-500 hover:bg-gray-500/10 disabled:opacity-50 disabled:cursor-not-allowed text-gray-300 rounded-lg transition-colors font-medium'
+          className='inline-flex items-center gap-2 px-6 py-3 bg-transparent border border-gray-500/50 hover:bg-gray-500/10 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed text-gray-300 hover:text-white rounded-lg transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-gray-400/40 focus:ring-offset-2 focus:ring-offset-[#0a090f] min-w-[200px] justify-center'
         >
           {isLoading ? (
-            <div className='flex items-center gap-2'>
+            <>
               <svg className='animate-spin h-4 w-4' viewBox='0 0 24 24'>
                 <circle
                   className='opacity-25'
@@ -41,10 +41,12 @@ export default function LoadMoreSection({
                   d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
                 />
               </svg>
-              Loading More Products...
-            </div>
+              Loading More...
+            </>
           ) : (
-            'Load More Products'
+            <>
+              <span>Load More Products</span>
+            </>
           )}
         </button>
       ) : (
@@ -53,7 +55,7 @@ export default function LoadMoreSection({
             <p className='text-gray-400 font-medium mb-4'>No More Items</p>
             <button
               onClick={onScrollToTop}
-              className='flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium cursor-pointer'
+              className='flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-[#0a090f]'
             >
               <HiArrowUp className='w-4 h-4' />
               Back to Top

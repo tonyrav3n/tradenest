@@ -1,6 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
-import { HiShoppingBag, HiBars3, HiXMark } from 'react-icons/hi2';
 import { useState } from 'react';
+import { HiBars3, HiShoppingBag, HiXMark } from 'react-icons/hi2';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
   const location = useLocation();
@@ -18,10 +18,7 @@ export default function Header() {
   };
 
   return (
-    <header
-      className='fixed top-0 left-0 right-0 w-full border-b border-blue-500/20 backdrop-blur-sm z-50'
-      style={{ backgroundColor: 'rgba(10, 9, 15, 0.9)' }}
-    >
+    <header className='sticky top-0 w-full bg-[#0a090f]/80 backdrop-blur-md border-b border-white/10 z-50 transition-all duration-200'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-16'>
           {/* Logo/Brand */}
@@ -29,7 +26,7 @@ export default function Header() {
             <Link
               to='/'
               onClick={handleHomeClick}
-              className='text-xl font-bold text-white cursor-pointer no-underline'
+              className='text-xl font-bold text-white cursor-pointer no-underline hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f] rounded'
             >
               TradeNest
             </Link>
@@ -39,7 +36,11 @@ export default function Header() {
           <nav className='hidden md:flex space-x-8'>
             <Link
               to='/products'
-              className='flex items-center gap-2 text-gray-300 hover:text-blue-400 transition-colors no-underline'
+              className={`flex items-center gap-2 transition-all duration-200 no-underline px-3 py-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f] ${
+                location.pathname === '/products'
+                  ? 'text-blue-400 bg-blue-500/10 border-b-2 border-blue-400'
+                  : 'text-gray-300 hover:text-blue-400 hover:bg-blue-500/5'
+              }`}
             >
               <HiShoppingBag className='w-5 h-5' />
               Browse Products
