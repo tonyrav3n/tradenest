@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { HiBars3, HiShoppingBag, HiXMark } from 'react-icons/hi2';
+import { HiBars3, HiShoppingBag, HiXMark, HiPlus, HiArrowUpTray, HiClipboardDocumentList } from 'react-icons/hi2';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
@@ -45,6 +45,39 @@ export default function Header() {
               <HiShoppingBag className='w-5 h-5' />
               Browse Products
             </Link>
+            <Link
+              to='/my-trades'
+              className={`flex items-center gap-2 transition-all duration-200 no-underline px-3 py-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f] ${
+                location.pathname === '/my-trades'
+                  ? 'text-purple-400 bg-purple-500/10 border-b-2 border-purple-400'
+                  : 'text-gray-300 hover:text-purple-400 hover:bg-purple-500/5'
+              }`}
+            >
+              <HiClipboardDocumentList className='w-5 h-5' />
+              My Trades
+            </Link>
+            <Link
+              to='/list-product'
+              className={`flex items-center gap-2 transition-all duration-200 no-underline px-3 py-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f] ${
+                location.pathname === '/list-product'
+                  ? 'text-orange-400 bg-orange-500/10 border-b-2 border-orange-400'
+                  : 'text-gray-300 hover:text-orange-400 hover:bg-orange-500/5'
+              }`}
+            >
+              <HiArrowUpTray className='w-5 h-5' />
+              List Product
+            </Link>
+            <Link
+              to='/create-trade'
+              className={`flex items-center gap-2 transition-all duration-200 no-underline px-3 py-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f] ${
+                location.pathname === '/create-trade'
+                  ? 'text-green-400 bg-green-500/10 border-b-2 border-green-400'
+                  : 'text-gray-300 hover:text-green-400 hover:bg-green-500/5'
+              }`}
+            >
+              <HiPlus className='w-5 h-5' />
+              Create Trade
+            </Link>
           </nav>
 
           {/* Right side - Mobile menu button and Wallet */}
@@ -79,6 +112,30 @@ export default function Header() {
               >
                 <HiShoppingBag className='w-5 h-5' />
                 Browse Products
+              </Link>
+              <Link
+                to='/my-trades'
+                onClick={closeMobileMenu}
+                className='flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors no-underline py-2'
+              >
+                <HiClipboardDocumentList className='w-5 h-5' />
+                My Trades
+              </Link>
+              <Link
+                to='/list-product'
+                onClick={closeMobileMenu}
+                className='flex items-center gap-2 text-gray-300 hover:text-orange-400 transition-colors no-underline py-2'
+              >
+                <HiArrowUpTray className='w-5 h-5' />
+                List Product
+              </Link>
+              <Link
+                to='/create-trade'
+                onClick={closeMobileMenu}
+                className='flex items-center gap-2 text-gray-300 hover:text-green-400 transition-colors no-underline py-2'
+              >
+                <HiPlus className='w-5 h-5' />
+                Create Trade
               </Link>
             </nav>
           </div>

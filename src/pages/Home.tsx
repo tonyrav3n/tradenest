@@ -22,10 +22,13 @@ export default function Home() {
 
           {/* Action Buttons */}
           <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4'>
-            <button className='w-full sm:w-auto flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 font-semibold text-base sm:text-lg min-w-[160px] shadow-sm hover:shadow-blue-600/20 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f]'>
+            <Link
+              to='/create-trade'
+              className='w-full sm:w-auto flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 font-semibold text-base sm:text-lg min-w-[160px] shadow-sm hover:shadow-blue-600/20 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f] no-underline'
+            >
               <HiUsers className='w-5 h-5' />
               Create Trade
-            </button>
+            </Link>
             <Link
               to='/products'
               className='w-full sm:w-auto flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-blue-400 rounded-lg transition-all duration-200 font-semibold text-base sm:text-lg min-w-[160px] text-center no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a090f]'

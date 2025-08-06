@@ -1,7 +1,9 @@
 import { AppKitProvider } from '@/Providers';
 import Header from '@/components/Header';
+import CreateTrade from '@/pages/CreateTrade';
 import Home from '@/pages/Home';
 import ListProduct from '@/pages/ListProduct';
+import MyTrades from '@/pages/MyTrades';
 import ProductDetail from '@/pages/ProductDetail';
 import Products from '@/pages/Products';
 import '@/styles/App.css';
@@ -25,6 +27,8 @@ function App() {
             <Route path='/list-product' element={<ListProduct />} />
             <Route path='/products' element={<Products />} />
             <Route path='/product/:id' element={<ProductDetail />} />
+            <Route path='/create-trade' element={<CreateTrade />} />
+            <Route path='/my-trades' element={<MyTrades />} />
           </Routes>
         </main>
       </Router>

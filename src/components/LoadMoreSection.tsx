@@ -55,7 +55,7 @@ export default function LoadMoreSection({
             <p className='text-gray-400 font-medium mb-4'>No More Items</p>
             <button
               onClick={onScrollToTop}
-              className='flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-[#0a090f]'
+              className='inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-[#0a090f]'
             >
               <HiArrowUp className='w-4 h-4' />
               Back to Top
